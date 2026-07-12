@@ -1,0 +1,1487 @@
+{
+  "name": "Inventory Low Stock Alert System",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec",
+          "mode": "list",
+          "cachedResultName": "all inventary data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "all stock",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        976
+      ],
+      "id": "950c59d6-ad16-42d0-a782-9801a62e94fa",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Stock }}",
+                    "rightValue": 0,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "fa14cb61-76f1-4a7d-95ee-9376b76ef8cf"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "out of stock"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "ec0e2f99-0357-4063-b90b-5d3aa270e179",
+                    "leftValue": "={{ $json.Stock }}",
+                    "rightValue": 10,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lt"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "low stock"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "2dcd560e-f6e1-46a8-b17a-ff35499f5420",
+                    "leftValue": "={{ $json.Stock }}",
+                    "rightValue": 10,
+                    "operator": {
+                      "type": "number",
+                      "operation": "gte"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "avilable  stock"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        960
+      ],
+      "id": "7742d5d3-e277-4969-99d1-2b4c186dc4e6",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec",
+          "mode": "list",
+          "cachedResultName": "all inventary data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1081541567,
+          "mode": "list",
+          "cachedResultName": "avilable stock",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit#gid=1081541567"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        544,
+        1344
+      ],
+      "id": "11d8829b-f650-4ed9-8d3c-9ddeabd98ee2",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec",
+          "mode": "list",
+          "cachedResultName": "all inventary data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1504093617,
+          "mode": "list",
+          "cachedResultName": "out of stock",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit#gid=1504093617"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1088,
+        800
+      ],
+      "id": "96dbd558-4911-4678-8c69-8d4004178008",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec",
+          "mode": "list",
+          "cachedResultName": "all inventary data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1312652316,
+          "mode": "list",
+          "cachedResultName": "low stock",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit#gid=1312652316"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Product ID",
+              "displayName": "Product ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product",
+              "displayName": "Product",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Stock",
+              "displayName": "Stock",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Price (₹)",
+              "displayName": "Price (₹)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1072,
+        1152
+      ],
+      "id": "be1999f6-6aad-40d5-ad1f-f70fce2d74c9",
+      "name": "Append row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        848,
+        1344
+      ],
+      "id": "f9ad82f6-09a7-4c0f-946c-c0ebbdd1deb8",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "sendTo": "bhoominigokam9@gmail.com",
+        "subject": "🚨 Out of Stock Alert - Immediate Action Required",
+        "emailType": "text",
+        "message": "=Hello Warehouse Manager,\n\n\nThe following product is currently out of stock and requires immediate restocking.\n\n----------------------------------------\n\nProduct ID      : {{ $json[\"Product ID\"] }}\n\nProduct Name    : {{ $json.Product }}\n\nCategory        : {{ $json.Category }}\n\nCurrent Stock   : {{ $json.Stock }}\n\nPrice           : ₹{{ $json['Price (₹)'] }}\n\n----------------------------------------\n\nPlease arrange to restock this product as soon as possible to avoid delays in customer orders.\n\n\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1312,
+        800
+      ],
+      "id": "1528733f-baf5-42e7-9a10-a7c2e76abf4c",
+      "name": "Send a message",
+      "webhookId": "f4b0ec56-62fd-4f90-bcaa-cbc8c0a9ba24",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "spAMfrkQvbMRDGk4",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "Stock"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        896,
+        1152
+      ],
+      "id": "dc8159f5-5205-4376-901a-db2ee2e5ad77",
+      "name": "Sort"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "Product"
+            },
+            {
+              "field": "Stock "
+            },
+            {
+              "aggregation": "average",
+              "field": "Stock"
+            },
+            {
+              "aggregation": "min",
+              "field": "Stock"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        1296,
+        1056
+      ],
+      "id": "31ae3cfc-2289-47dc-b5ea-e4d057464c2b",
+      "name": "Summarize"
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "Price (₹)",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        1296,
+        1248
+      ],
+      "id": "d1f6ec9d-06e2-47e9-8b7c-0fbf050c88dd",
+      "name": "Sort1"
+    },
+    {
+      "parameters": {
+        "maxItems": 5
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        1248
+      ],
+      "id": "1a870aa9-9694-4dc7-baeb-fa525837f427",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec",
+          "mode": "list",
+          "cachedResultName": "all inventary data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1255945995,
+          "mode": "list",
+          "cachedResultName": "daily report",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit#gid=1255945995"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1520,
+        1056
+      ],
+      "id": "c7a0e59b-d4ee-4639-9247-94735c322e95",
+      "name": "Append row in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec",
+          "mode": "list",
+          "cachedResultName": "all inventary data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 524499113,
+          "mode": "list",
+          "cachedResultName": "top 5 products",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit#gid=524499113"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1744,
+        1248
+      ],
+      "id": "04cdf501-fc2e-4d33-b987-c60c8dc8c36d",
+      "name": "Append row in sheet4",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Category }}",
+                    "rightValue": "Electronics",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "51d18c6b-6b4a-408f-80a3-9b0bcbbd9ad5"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "electronics inventry"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "603a64ee-cd42-4d6c-8ba4-64b53370f117",
+                    "leftValue": "={{ $json.Category }}",
+                    "rightValue": "Furniture",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Furniture Inventory"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "0db11b4a-cdb5-4035-9bf1-678ec95ac596",
+                    "leftValue": "={{ $json.Category }}",
+                    "rightValue": "Home Appliances",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": " Home Appliances Inventory"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "06813d89-2c05-4697-806c-4398c1fefb21",
+                    "leftValue": "={{ $json.Category }}",
+                    "rightValue": "Networking",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Networking Inventory"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "d5c19d74-0746-4115-8c94-de879ae64145",
+                    "leftValue": "={{ $json.Category }}",
+                    "rightValue": "Sports",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Sports Inventory"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "acbb1ca6-36f3-4a27-8efe-c1074de2706f",
+                    "leftValue": "={{ $json.Category }}",
+                    "rightValue": "Fitness",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Fitness Inventory"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        2000,
+        912
+      ],
+      "id": "bf480d91-5db3-4a33-ab02-9222dde34cc4",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic",
+          "mode": "list",
+          "cachedResultName": "caatogary sperd sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1858544234,
+          "mode": "list",
+          "cachedResultName": "Electronics Inventory",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit#gid=1858544234"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2224,
+        608
+      ],
+      "id": "1847950b-cbaf-4391-bcd9-dbaab276f8ee",
+      "name": "Append row in sheet5",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic",
+          "mode": "list",
+          "cachedResultName": "caatogary sperd sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 879179092,
+          "mode": "list",
+          "cachedResultName": "📄 Furniture Inventory",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit#gid=879179092"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2240,
+        768
+      ],
+      "id": "bee4d528-8169-4022-9b58-477b519aefb2",
+      "name": "Append row in sheet6",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic",
+          "mode": "list",
+          "cachedResultName": "caatogary sperd sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1761124860,
+          "mode": "list",
+          "cachedResultName": "📄 Home Appliances Inventory",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit#gid=1761124860"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2240,
+        960
+      ],
+      "id": "58e54673-7c43-4a2d-8cfa-9132779443e7",
+      "name": "Append row in sheet7",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic",
+          "mode": "list",
+          "cachedResultName": "caatogary sperd sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 339889197,
+          "mode": "list",
+          "cachedResultName": "📄 Networking Inventory",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit#gid=339889197"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2256,
+        1152
+      ],
+      "id": "a10245dc-441d-42d3-9454-3816bb8b342a",
+      "name": "Append row in sheet9",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic",
+          "mode": "list",
+          "cachedResultName": "caatogary sperd sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1039416220,
+          "mode": "list",
+          "cachedResultName": "📄 Sports Inventory",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit#gid=1039416220"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2272,
+        1344
+      ],
+      "id": "fbe09638-98d0-4126-a2e9-a843ce6b09ea",
+      "name": "Append row in sheet10",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic",
+          "mode": "list",
+          "cachedResultName": "caatogary sperd sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 507256809,
+          "mode": "list",
+          "cachedResultName": "📄 Fitness Inventory",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pDKJ7S_vYXVhWa-VqMxwX1WihTiRyD_pHak8h2Cl8Ic/edit#gid=507256809"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2288,
+        1520
+      ],
+      "id": "773ff4b9-0ff4-4b02-a04d-f585228c95db",
+      "name": "Append row in sheet11",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2528,
+        1072
+      ],
+      "id": "0acfb7c9-c72b-4e30-940a-2dac2cc9304f",
+      "name": "No Operation, do nothing1"
+    },
+    {
+      "parameters": {
+        "sendTo": "bhoominigokam9@gmail.com",
+        "subject": "📦 Daily Inventory Report",
+        "emailType": "text",
+        "message": "=Hello Warehouse Manager,  \n\nThe daily inventory check has been completed successfully.\n\nInventory Summary \n\n📊 Total Products      : {{ $json.count_Product }}\n🟢 Available Stock    :{{ $json.count_Stock_ }}\n🟡 Low Stock Items    : {{ $json.min_Stock }}\n🔴Out of Stock Items : \n📦 Average Stock      : {{ $json.average_Stock }}\n \nPlease review the low stock and out-of-stock products and arrange restocking where required.  \n\nThank you.  \n\nRegards, \nInventory Management System. ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1744,
+        1056
+      ],
+      "id": "9b08e7f7-e19f-4915-b625-921770941956",
+      "name": "Send a message1",
+      "webhookId": "637ccfc6-ed51-4300-8347-324856e4b568",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "spAMfrkQvbMRDGk4",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9,
+              "triggerAtMinute": 30
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        976
+      ],
+      "id": "edb3c546-8217-464b-9abe-497c13301306",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec",
+          "mode": "list",
+          "cachedResultName": "all inventary data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "all stock",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jnXySgkl0TZWVnq7XjfX_fcQclBLo4JpvRHA5bnS9Ec/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "Product ID"
+          ],
+          "schema": [
+            {
+              "id": "Product ID",
+              "displayName": "Product ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product",
+              "displayName": "Product",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Stock",
+              "displayName": "Stock",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Price (₹)",
+              "displayName": "Price (₹)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Readable date",
+              "displayName": "Readable date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Readable time",
+              "displayName": "Readable time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Day of week",
+              "displayName": "Day of week",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Year",
+              "displayName": "Year",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Month",
+              "displayName": "Month",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Day of month",
+              "displayName": "Day of month",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Hour",
+              "displayName": "Hour",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Minute",
+              "displayName": "Minute",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Second",
+              "displayName": "Second",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Timezone",
+              "displayName": "Timezone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        976
+      ],
+      "id": "08e5ef3d-44e0-43b4-a7dc-92ffac0ce78e",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nWxKoPNhLKKV7xc6",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Sort1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort1": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet9",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet10",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet5": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet11": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet9": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet10": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet7": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet6": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet3": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet4": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1
+  },
+  "versionId": "f0879570-faeb-413e-aed7-3c75f18ae440",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9a7dce7f5862a86b54106ae3b7fae81da837e6bc8dd2c16b964705cdf9486f6b"
+  },
+  "nodeGroups": [],
+  "id": "mOMVBSCayBJH4CZ4",
+  "tags": []
+}
