@@ -293,15 +293,15 @@ Some features I plan to add in the future:
 
 
 ## workflow Design
-![image alt]()
+![image alt](https://github.com/n8n-workflows-projects/Inventory-Low-Stock-Alert-System/blob/d81cf676db701bdabb5291a51a89a80aea03481d/Screenshot%202026-07-12%20123230.png)
 
 ## workflow sources
-![image alt]()
-![image alt]()
+![image alt](https://github.com/n8n-workflows-projects/Inventory-Low-Stock-Alert-System/blob/d81cf676db701bdabb5291a51a89a80aea03481d/Screenshot%202026-07-12%20123341.png)
 
 ## workflow output
-![image alt]()
-![image alt]()
+![image alt](https://github.com/n8n-workflows-projects/Inventory-Low-Stock-Alert-System/blob/d81cf676db701bdabb5291a51a89a80aea03481d/Screenshot%202026-07-12%20122905.png)
+![image alt](https://github.com/n8n-workflows-projects/Inventory-Low-Stock-Alert-System/blob/d81cf676db701bdabb5291a51a89a80aea03481d/Screenshot%202026-07-12%20123410.png)
+![image alt](https://github.com/n8n-workflows-projects/Inventory-Low-Stock-Alert-System/blob/eebccb2f4acf2159e2f6dd6ef04cbbd938f0e2ad/Screenshot%202026-07-12%20125340.png)
 
 
 
